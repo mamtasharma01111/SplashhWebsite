@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Splashh - Royal Resort & Banquet</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="Untitled design.png" alt="Splashh Logo" class="logo">
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link active">Home</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="rooms.html" class="nav-link">Rooms</a></li>
+                <li><a href="banquet.html" class="nav-link">Banquet</a></li>
+                <li><a href="gallery.html" class="nav-link">Gallery</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-slider">
+            <div class="hero-slide active">
+                <div class="hero-content">
+                    <h1 class="hero-title">Welcome to Splashh</h1>
+                    <p class="hero-subtitle">Royal Resort & Banquet</p>
+                    <p class="hero-description">Experience luxury and elegance in our premium resort with world-class amenities and exceptional banquet facilities</p>
+                </div>
+                <div class="hero-image">
+                    <img src="1image.jpeg" alt="Luxury Resort">
+                </div>
+            </div>
+            <div class="hero-slide">
+                <div class="hero-content">
+                    <h1 class="hero-title">Welcome to Banquet</h1>
+                    <p class="hero-subtitle">Grand Celebrations</p>
+                    <p class="hero-description">Host your special events in our elegant banquet halls with top-notch service and ambiance</p>
+                </div>
+                <div class="hero-image">
+                    <img src="banquet.jpeg" alt="Banquet Hall">
+                </div>
+            </div>
+            <div class="hero-slide">
+                <div class="hero-content">
+                    <h1 class="hero-title">Welcome to Hotel Splashh</h1>
+                    <p class="hero-subtitle">Luxury Accommodation</p>
+                    <p class="hero-description">Stay in comfort and style in our modern rooms and suites designed for your relaxation</p>
+                </div>
+                <div class="hero-image">
+                    <img src="https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg" alt="Hotel Room">
+                </div>
+            </div>
+            <div class="hero-slider-dots">
+                <span class="dot active" data-slide="0"></span>
+                <span class="dot" data-slide="1"></span>
+                <span class="dot" data-slide="2"></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Why Choose Splashh</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🏨</div>
+                    <h3>Luxury Accommodation</h3>
+                    <p>Premium rooms and suites with modern amenities and stunning views</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎉</div>
+                    <h3>Grand Banquet Halls</h3>
+                    <p>Elegant venues perfect for weddings, conferences, and special events</p>
+                </div>
+                <!-- <div class="feature-card">
+                    <div class="feature-icon">🍽️</div>
+                    <h3>Fine Dining</h3>
+                    <p>Exquisite cuisine prepared by world-class chefs using finest ingredients</p>
+                </div> -->
+                <div class="feature-card">
+                    <div class="feature-icon">🏊</div>
+                    <h3>Premium Amenities</h3>
+                    <p>Swimming pool, spa, fitness center, and recreational facilities</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rooms Preview -->
+    <section class="rooms-preview">
+        <div class="container">
+            <h2 class="section-title">Our Rooms & Suites</h2>
+            <div class="rooms-grid">
+                <div class="room-card">
+                    <img src="https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg" alt="Deluxe Room">
+                    <div class="room-info">
+                        <h3>Deluxe Room</h3>
+                        <p>Comfortable and elegant rooms with modern amenities</p>
+                        <div class="room-price">₹***/night</div>
+                    </div>
+                </div>
+                <div class="room-card">
+                    <img src="https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg" alt="Premium Suite">
+                    <div class="room-info">
+                        <h3>Premium Suite</h3>
+                        <p>Spacious suites with separate living area and premium facilities</p>
+                        <div class="room-price">₹***/night</div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="text-center">
+                <a href="rooms.html" class="btn btn-primary">View All Rooms</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <div class="container">
+            <h2 class="section-title">What Our Guests Say</h2>
+            <div class="testimonial-slider" id="testimonial-slider">
+                <button class="testimonial-arrow left" id="testimonial-prev">&#8592;</button>
+                <div class="testimonial-slides" id="testimonial-slides">
+                    <!-- Slides will be rendered here by JS -->
+                </div>
+                <button class="testimonial-arrow right" id="testimonial-next">&#8594;</button>
+            </div>
+            <div class="testimonial-slider-dots" id="testimonial-slider-dots"></div>
+            <div class="testimonial-form-container">
+                <h3>Leave a Review</h3>
+                <form id="testimonial-form" action="https://formsubmit.co/splashhresorts@gmail.com" method="POST">
+                    <!-- Honeypot to prevent spam -->
+                    <input type="text" name="_honey" style="display:none">
+                    
+                    <!-- Disable captcha -->
+                    <input type="hidden" name="_captcha" value="false">
+                    
+                    <!-- Custom success page -->
+                    <input type="hidden" name="_next" value="testimonial-success.html">
+                    
+                    <!-- Form subject for email organization -->
+                    <input type="hidden" name="_subject" value="New Guest Review/Testimonial">
+                    
+                    <!-- Template for better email formatting -->
+                    <input type="hidden" name="_template" value="table">
+                    
+                    <!-- Auto reply to sender -->
+                    <input type="hidden" name="_autoresponse" value="Thank you for your review of Splashh Royal Resort & Banquet. Your feedback helps us improve and helps other guests make informed decisions.">
+                    
+                    <input type="text" id="reviewer-name" name="reviewerName" placeholder="Your Name" required>
+                    <textarea id="review-text" name="reviewText" placeholder="Your Review" required></textarea>
+                    <button type="submit" class="btn btn-primary">Submit Review</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <img src="Untitled design.png" alt="Splashh Logo" class="footer-logo">
+                    <p>Experience luxury and elegance at Splashh Royal Resort & Banquet</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="rooms.html">Rooms</a></li>
+                        <li><a href="banquet.html">Banquet</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <p>📍 Splashh Pool Resort, Ratanpur<br>Near Gandhi Sikshan Sansthan, Begusarai</p>
+                    <p>📞 +91-8272808282 +91-9459469453</p>
+                    <p>✉️ splashhresorts@gmail.com</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#">Facebook</a>
+                        <a href="#">Instagram</a>
+                        <a href="#">Twitter</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Splashh Royal Resort & Banquet. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="scripts/main.js"></script>
+</body>
+</html>

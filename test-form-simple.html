@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple FormSubmit Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 500px; margin: 50px auto; padding: 20px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; }
+        input, textarea { width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; }
+        button { background: #007bff; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; }
+        .status { margin-top: 20px; padding: 10px; border-radius: 4px; }
+        .success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .loading { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+    </style>
+</head>
+<body>
+    <h1>FormSubmit Test</h1>
+    <p>Testing basic FormSubmit functionality</p>
+    
+         <!-- Test 1: Basic FormSubmit -->
+     <h3>Test 1: Basic Form</h3>
+     <form id="basicForm" action="https://formsubmit.co/splashhresorts@gmail.com" method="POST">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_subject" value="Basic Test Form">
+        
+        <div class="form-group">
+            <label>Name:</label>
+            <input type="text" name="name" required>
+        </div>
+        
+        <div class="form-group">
+            <label>Email:</label>
+            <input type="email" name="email" required>
+        </div>
+        
+        <div class="form-group">
+            <label>Message:</label>
+            <textarea name="message" rows="3" required></textarea>
+        </div>
+        
+        <button type="submit">Send Basic Form</button>
+    </form>
+    
+    <!-- Test 2: Alternative FormSubmit URL -->
+    <h3>Test 2: Alternative URL</h3>
+    <form id="altForm" action="https://formsubmit.co/splashhresorts@gmail.com" method="POST">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_subject" value="Alternative Test Form">
+        
+        <div class="form-group">
+            <label>Name:</label>
+            <input type="text" name="name" required>
+        </div>
+        
+        <div class="form-group">
+            <label>Email:</label>
+            <input type="email" name="email" required>
+        </div>
+        
+        <div class="form-group">
+            <label>Message:</label>
+            <textarea name="message" rows="3" required></textarea>
+        </div>
+        
+        <button type="submit">Send Alternative Form</button>
+    </form>
+    
+         <!-- Test 3: Direct FormSubmit -->
+     <h3>Test 3: Direct FormSubmit</h3>
+     <form id="directForm" action="https://formsubmit.co/splashhresorts@gmail.com" method="POST">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_subject" value="Direct Test Form">
+        <input type="hidden" name="_next" value="https://httpbin.org/status/200">
+        
+        <div class="form-group">
+            <label>Name:</label>
+            <input type="text" name="name" required>
+        </div>
+        
+        <div class="form-group">
+            <label>Email:</label>
+            <input type="email" name="email" required>
+        </div>
+        
+        <div class="form-group">
+            <label>Message:</label>
+            <textarea name="message" rows="3" required></textarea>
+        </div>
+        
+        <button type="submit">Send Direct Form</button>
+    </form>
+    
+    <div id="status"></div>
+    
+    <script>
+        function showStatus(message, type) {
+            const statusDiv = document.getElementById('status');
+            statusDiv.innerHTML = `<div class="status ${type}">${message}</div>`;
+        }
+        
+        // Test Basic Form
+        document.getElementById('basicForm').addEventListener('submit', function(e) {
+            showStatus('Submitting basic form...', 'loading');
+            console.log('Basic form submitted');
+        });
+        
+        // Test Alternative Form
+        document.getElementById('altForm').addEventListener('submit', function(e) {
+            showStatus('Submitting alternative form...', 'loading');
+            console.log('Alternative form submitted');
+        });
+        
+        // Test Direct Form
+        document.getElementById('directForm').addEventListener('submit', function(e) {
+            showStatus('Submitting direct form...', 'loading');
+            console.log('Direct form submitted');
+        });
+        
+        // Check FormSubmit status
+        window.addEventListener('load', function() {
+            showStatus('Forms loaded. Try submitting each one to test.', 'loading');
+        });
+    </script>
+</body>
+</html>

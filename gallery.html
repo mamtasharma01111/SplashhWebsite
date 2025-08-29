@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - Splashh Royal Resort & Banquet</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="Splashh Final Logo-02.png" alt="Splashh Logo" class="logo">
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="rooms.html" class="nav-link">Rooms</a></li>
+                <li><a href="banquet.html" class="nav-link">Banquet</a></li>
+                <li><a href="gallery.html" class="nav-link active">Gallery</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Gallery</h1>
+            <p>Explore our beautiful resort and banquet facilities</p>
+        </div>
+    </section>
+
+    <!-- Gallery Filters -->
+    <section class="gallery-filters">
+        <div class="container">
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">All Photos</button>
+                <button class="filter-btn" data-filter="rooms">Rooms</button>
+                <button class="filter-btn" data-filter="banquet">Banquet</button>
+                <button class="filter-btn" data-filter="amenities">Amenities</button>
+                <button class="filter-btn" data-filter="events">Events</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Grid -->
+    <section class="gallery-section">
+        <div class="container">
+            <div class="gallery-grid" id="galleryGrid">
+                <!-- Room Photos -->
+                <div class="gallery-item" data-category="rooms">
+                    <img src="./room.jpeg" alt="Deluxe Room" loading="lazy">
+                    <div class="gallery-overlay">
+                        <h3>Deluxe Room</h3>
+                        <p>Comfortable luxury accommodation</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="rooms">
+                    <img src="./room1.jpeg" alt="Premium Suite" loading="lazy">
+                    <div class="gallery-overlay">
+                        <h3>Premium Suite</h3>
+                        <p>Spacious suite with living area</p>
+                    </div>
+                </div>
+
+                <!-- <div class="gallery-item" data-category="rooms">
+                    <img src="https://images.pexels.com/photos/1743229/pexels-photo-1743229.jpeg" alt="Royal Suite" loading="lazy">
+                    <div class="gallery-overlay">
+                        <h3>Royal Suite</h3>
+                        <p>Ultimate luxury experience</p>
+                    </div>
+                </div> -->
+
+                <!-- Banquet Photos -->
+                <div class="gallery-item" data-category="banquet">
+                    <img src="./banquet(1).jpeg.jpg" alt="Grand Ballroom" loading="lazy">
+                    <div class="gallery-overlay">
+                        <h3>Grand Ballroom</h3>
+                        <p>Elegant venue for grand celebrations</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="banquet">
+                    <img src="./banquet(2).jpeg.jpg" alt="Royal Hall" loading="lazy">
+                    <div class="gallery-overlay">
+                        <h3>Royal Hall</h3>
+                        <p>Perfect for medium-sized events</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="banquet">
+                    <img src="./banquet(3).jpeg.jpg" alt="Crystal Lounge" loading="lazy">
+                    <div class="gallery-overlay">
+                        <h3>Crystal Lounge</h3>
+                        <p>Sophisticated cocktail venue</p>
+                    </div>
+                </div>
+
+                <!-- Amenities Photos -->
+                <div class="gallery-item" data-category="amenities">
+                    <img src="./amenities(2).jpg" alt="Swimming Pool" loading="lazy">
+                    <div class="gallery-overlay">
+                        <h3>Swimming Pool</h3>
+                        <p>Refreshing pool with poolside service</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="amenities">
+                    <img src="./amenities(1).jpg" alt="Spa & Wellness" loading="lazy">
+                    <div class="gallery-overlay">
+                        <h3>Feast & Celebrate</h3>
+                        <p>Delicious cuisine in luxurious settings</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="amenities">
+                    <img src="./amenities(3).jpg" alt="Fitness Center" loading="lazy">
+                    <div class="gallery-overlay">
+                        <h3>Grand Celebrations</h3>
+                        <p>Elegant banquets for every special occasion</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="amenities">
+                    <img src="./banquet(2).jpeg.jpg" alt="Restaurant" loading="lazy">
+                    <div class="gallery-overlay">
+                        <h3>Fine Dining Restaurant</h3>
+                        <p>Exquisite culinary experience</p>
+                    </div>
+                </div>
+
+                <!-- Events Photos -->
+                <div class="gallery-item" data-category="events">
+                    <img src="./banquet(5).jpg" alt="Wedding Ceremony" loading="lazy">
+                    <div class="gallery-overlay">
+                        <h3>Wedding Ceremony</h3>
+                        <p>Beautiful wedding celebrations</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="events">
+                    <img src="./event(2).jpeg" alt="Corporate Event" loading="lazy">
+                    <div class="gallery-overlay">
+                        <h3>Corporate Event</h3>
+                        <p>Professional business gatherings</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="events">
+                    <img src="./event(1).jpg" alt="Birthday Party" loading="lazy">
+                    <div class="gallery-overlay">
+                        <h3>Birthday Celebration</h3>
+                        <p>Memorable birthday parties</p>
+                    </div>
+                </div>
+
+                <!-- Additional Photos -->
+                <div class="gallery-item" data-category="amenities">
+                    <img src="./banquet(4).jpeg.jpg" alt="Resort Exterior" loading="lazy">
+                    <div class="gallery-overlay">
+                        <h3>Resort Exterior</h3>
+                        <p>Beautiful architecture and landscaping</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="rooms">
+                    <img src="./room1.jpeg" alt="Family Suite" loading="lazy">
+                    <div class="gallery-overlay">
+                        <h3>Family Suite</h3>
+                        <p>Perfect for family stays</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="banquet">
+                    <img src="./banquet.jpeg" alt="Garden Pavilion" loading="lazy">
+                    <div class="gallery-overlay">
+                        <h3>Garden Pavilion</h3>
+                        <p>Outdoor venue with garden views</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lightbox Modal -->
+    <div id="lightboxModal" class="lightbox-modal">
+        <span class="lightbox-close">&times;</span>
+        <img class="lightbox-content" id="lightboxImage">
+        <div class="lightbox-caption" id="lightboxCaption"></div>
+        <a class="lightbox-prev" id="lightboxPrev">&#10094;</a>
+        <a class="lightbox-next" id="lightboxNext">&#10095;</a>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <img src="Splashh Final Logo-02.png" alt="Splashh Logo" class="footer-logo">
+                    <p>Experience luxury and elegance at Splashh Royal Resort & Banquet</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="rooms.html">Rooms</a></li>
+                        <li><a href="banquet.html">Banquet</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <p>📍 Splashh Pool Resort, Ratanpur<br>Near Gandhi Sikshan Sansthan, Begusarai</p>
+                    <p>📞 +91-8272808282 +91-9459469453</p>
+                    <p>✉️ splashhresorts@gmail.com</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#">Facebook</a>
+                        <a href="#">Instagram</a>
+                        <a href="#">Twitter</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Splashh Royal Resort & Banquet. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="scripts/main.js"></script>
+    <script src="scripts/gallery.js"></script>
+</body>
+</html>

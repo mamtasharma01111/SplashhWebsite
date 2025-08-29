@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alternative Form Solution</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 50px auto; padding: 20px; }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input, textarea, select { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; }
+        button { background: #007bff; color: white; padding: 12px 24px; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background: #0056b3; }
+        .success { color: green; margin-top: 20px; padding: 10px; background: #d4edda; border-radius: 4px; }
+        .error { color: red; margin-top: 20px; padding: 10px; background: #f8d7da; border-radius: 4px; }
+        .info { background: #d1ecf1; color: #0c5460; padding: 15px; border-radius: 4px; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Alternative Form Solution</h1>
+    
+    <div class="info">
+        <h3>Why This Alternative?</h3>
+        <p>Since FormSubmit is giving you "Whoops, looks like something went wrong" errors, this alternative form will:</p>
+        <ul>
+            <li>Collect form data and display it on screen</li>
+            <li>Allow you to copy the information</li>
+            <li>Provide a template for manual email sending</li>
+            <li>Work without external services</li>
+        </ul>
+    </div>
+    
+    <form id="alternativeForm">
+        <h2>Contact Form</h2>
+        
+        <div class="form-group">
+            <label for="name">Full Name *</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="email">Email *</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="phone">Phone Number *</label>
+            <input type="tel" id="phone" name="phone" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="subject">Subject *</label>
+            <select id="subject" name="subject" required>
+                <option value="">Select a subject</option>
+                <option value="room-booking">Room Booking</option>
+                <option value="banquet-inquiry">Banquet Inquiry</option>
+                <option value="general-inquiry">General Inquiry</option>
+                <option value="feedback">Feedback</option>
+                <option value="other">Other</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="message">Message *</label>
+            <textarea id="message" name="message" rows="6" required placeholder="Please provide details about your inquiry..."></textarea>
+        </div>
+        
+        <button type="submit">Submit Form</button>
+    </form>
+    
+    <div id="formResult" style="display: none;">
+        <h3>Form Submitted Successfully!</h3>
+        <div id="formData"></div>
+        
+        <div style="margin-top: 20px;">
+            <h4>Next Steps:</h4>
+            <ol>
+                <li><strong>Copy the information above</strong></li>
+                <li><strong>Send an email to:</strong> splashhresorts@gmail.com</li>
+                <li><strong>Subject:</strong> <span id="emailSubject"></span></li>
+                <li><strong>Include the copied information in your email</strong></li>
+            </ol>
+            
+            <button onclick="copyToClipboard()" style="background: #28a745; margin-top: 10px;">Copy Information to Clipboard</button>
+            <button onclick="resetForm()" style="background: #6c757d; margin-top: 10px; margin-left: 10px;">Submit Another Form</button>
+        </div>
+    </div>
+    
+    <script>
+        document.getElementById('alternativeForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+            
+            // Display the submitted data
+            const resultDiv = document.getElementById('formResult');
+            const dataDiv = document.getElementById('formData');
+            const subjectSpan = document.getElementById('emailSubject');
+            
+            // Create formatted display
+            let displayHTML = '<div style="background: #f8f9fa; padding: 15px; border-radius: 4px; border: 1px solid #dee2e6;">';
+            displayHTML += '<h4>Submitted Information:</h4>';
+            displayHTML += '<p><strong>Name:</strong> ' + data.name + '</p>';
+            displayHTML += '<p><strong>Email:</strong> ' + data.email + '</p>';
+            displayHTML += '<p><strong>Phone:</strong> ' + data.phone + '</p>';
+            displayHTML += '<p><strong>Subject:</strong> ' + data.subject + '</p>';
+            displayHTML += '<p><strong>Message:</strong> ' + data.message + '</p>';
+            displayHTML += '<p><strong>Date:</strong> ' + new Date().toLocaleString() + '</p>';
+            displayHTML += '</div>';
+            
+            dataDiv.innerHTML = displayHTML;
+            
+            // Set email subject
+            const subjectMap = {
+                'room-booking': 'Room Booking Request',
+                'banquet-inquiry': 'Banquet Hall Inquiry',
+                'general-inquiry': 'General Inquiry',
+                'feedback': 'Feedback/Review',
+                'other': 'Other Inquiry'
+            };
+            subjectSpan.textContent = subjectMap[data.subject] || 'Website Inquiry';
+            
+            // Show result
+            resultDiv.style.display = 'block';
+            
+            // Scroll to result
+            resultDiv.scrollIntoView({ behavior: 'smooth' });
+        });
+        
+        function copyToClipboard() {
+            const dataDiv = document.getElementById('formData');
+            const textToCopy = dataDiv.innerText;
+            
+            navigator.clipboard.writeText(textToCopy).then(function() {
+                alert('Information copied to clipboard!');
+            }).catch(function() {
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = textToCopy;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                alert('Information copied to clipboard!');
+            });
+        }
+        
+        function resetForm() {
+            document.getElementById('alternativeForm').reset();
+            document.getElementById('formResult').style.display = 'none';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

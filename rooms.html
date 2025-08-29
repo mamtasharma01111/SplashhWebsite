@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rooms & Suites - Splashh Royal Resort & Banquet</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="public/Splashh Final Logo-02.png" alt="Splashh Logo" class="logo">
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="rooms.html" class="nav-link active">Rooms</a></li>
+                <li><a href="banquet.html" class="nav-link">Banquet</a></li>
+                <li><a href="gallery.html" class="nav-link">Gallery</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Rooms & Suites</h1>
+            <p>Luxury accommodation for every preference</p>
+        </div>
+    </section>
+
+    <!-- Room Filters -->
+    <section class="room-filters">
+        <div class="container">
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">All Rooms</button>
+                <button class="filter-btn" data-filter="deluxe">Deluxe</button>
+                <button class="filter-btn" data-filter="premium">Premium</button>
+                <button class="filter-btn" data-filter="royal">Royal</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rooms Grid -->
+    <section class="rooms-section">
+        <div class="container">
+            <div class="rooms-grid" id="roomsGrid">
+                <!-- Deluxe Rooms -->
+                <div class="room-card" data-category="deluxe">
+                    <img src="room.jpeg" alt="Deluxe Room">
+                    <div class="room-info">
+                        <h3>Deluxe Room</h3>
+                        <p>Comfortable and elegant rooms with modern amenities and city views</p>
+                        <div class="room-amenities">
+                            <span>🛏️ King Bed</span>
+                            <span>📺 Smart TV</span>
+                            <span>❄️ AC</span>
+                            <span>🚿 Premium Bath</span>
+                        </div>
+                        <div class="room-price">₹5,999/night</div>
+                        <button class="btn btn-primary book-btn" data-room="Deluxe Room" data-price="5999">Book Now</button>
+                    </div>
+                </div>
+
+                <div class="room-card" data-category="deluxe">
+                    <img src="room1.jpeg" alt="Deluxe Twin">
+                    <div class="room-info">
+                        <h3>Deluxe Twin Room</h3>
+                        <p>Perfect for friends or colleagues with twin beds and modern facilities</p>
+                        <div class="room-amenities">
+                            <span>🛏️ Twin Beds</span>
+                            <span>📺 Smart TV</span>
+                            <span>❄️ AC</span>
+                            <span>☕ Mini Bar</span>
+                        </div>
+                        <div class="room-price">₹6,499/night</div>
+                        <button class="btn btn-primary book-btn" data-room="Deluxe Twin Room" data-price="6499">Book Now</button>
+                    </div>
+                </div>
+
+                <!-- Premium Suites -->
+                <div class="room-card" data-category="premium">
+                    <img src="room1.jpeg" alt="Premium Suite">
+                    <div class="room-info">
+                        <h3>Premium Suite</h3>
+                        <p>Spacious suites with separate living area and premium facilities</p>
+                        <div class="room-amenities">
+                            <span>🛏️ King Bed</span>
+                            <span>🛋️ Living Area</span>
+                            <span>🛁 Jacuzzi</span>
+                            <span>🌅 Balcony</span>
+                        </div>
+                        <div class="room-price">₹9,999/night</div>
+                        <button class="btn btn-primary book-btn" data-room="Premium Suite" data-price="9999">Book Now</button>
+                    </div>
+                </div>
+
+                
+            </div>
+        </div>
+    </section> 
+
+    <!-- Booking Modal -->
+    <div id="bookingModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Book Your Stay</h2>
+            <form id="bookingForm" action="https://formsubmit.co/splashhresorts@gmail.com" method="POST">
+                <!-- FormSubmit Configuration -->
+                <input type="hidden" name="_next" value="booking-success.html">
+                <input type="hidden" name="_subject" value="New Room Booking Request - Splashh Royal Resort">
+                <input type="hidden" name="_template" value="table">
+                <input type="hidden" name="_autoresponse" value="Thank you for your room booking request. We will get back to you within 24 hours with confirmation and details.">
+                <input type="hidden" name="_honey" style="display:none">
+                <input type="hidden" name="_captcha" value="false">
+                
+                <div class="form-group">
+                    <label>Room Type:</label>
+                    <input type="text" id="roomType" name="roomType" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Price per night:</label>
+                    <input type="text" id="roomPrice" name="roomPrice" readonly>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="checkIn">Check-in Date:</label>
+                        <input type="date" id="checkIn" name="checkIn" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="checkOut">Check-out Date:</label>
+                        <input type="date" id="checkOut" name="checkOut" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="guests">Number of Guests:</label>
+                        <select id="guests" name="guests" required>
+                            <option value="">Select guests</option>
+                            <option value="1">1 Guest</option>
+                            <option value="2">2 Guests</option>
+                            <option value="3">3 Guests</option>
+                            <option value="4">4 Guests</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="rooms">Number of Rooms:</label>
+                        <select id="rooms" name="rooms" required>
+                            <option value="">Select rooms</option>
+                            <option value="1">1 Room</option>
+                            <option value="2">2 Rooms</option>
+                            <option value="3">3 Rooms</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="guestName">Full Name:</label>
+                    <input type="text" id="guestName" name="guestName" required>
+                </div>
+                <div class="form-group">
+                    <label for="guestEmail">Email:</label>
+                    <input type="email" id="guestEmail" name="guestEmail" required>
+                    <input type="hidden" name="_replyto" value="">
+                </div>
+                <div class="form-group">
+                    <label for="guestPhone">Phone Number:</label>
+                    <input type="tel" id="guestPhone" name="guestPhone" required>
+                </div>
+                <div class="total-price">
+                    <strong>Total: ₹<span id="totalPrice">0</span></strong>
+                </div>
+                <button type="submit" class="btn btn-primary">Confirm Booking</button>
+            </form>
+            
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <img src="public/Splashh Final Logo-02.png" alt="Splashh Logo" class="footer-logo">
+                    <p>Experience luxury and elegance at Splashh Royal Resort & Banquet</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="rooms.html">Rooms</a></li>
+                        <li><a href="banquet.html">Banquet</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <p>📍 Splashh Pool Resort, Ratanpur<br>Near Gandhi Sikshan Sansthan, Begusarai</p>
+                    <p>📞 +91-8272808282 +91-9459469453</p>
+                    <p>✉️ splashhresorts@gmail.com</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#">Facebook</a>
+                        <a href="#">Instagram</a>
+                        <a href="#">Twitter</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Splashh Royal Resort & Banquet. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="scripts/main.js"></script>
+    <script src="scripts/rooms.js"></script>
+</body>
+</html>

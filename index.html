@@ -60,7 +60,8 @@
                     <p class="hero-description">Stay in comfort and style in our modern rooms and suites designed for your relaxation</p>
                 </div>
                 <div class="hero-image">
-                    <img src="https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg" alt="Hotel Room">
+                    <img src="banquet(5).jpg" alt="banquet-halls">
+            
                 </div>
             </div>
             <div class="hero-slider-dots">
@@ -106,7 +107,7 @@
             <h2 class="section-title">Our Rooms & Suites</h2>
             <div class="rooms-grid">
                 <div class="room-card">
-                    <img src="https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg" alt="Deluxe Room">
+                    <img src="room.jpeg" alt="Deluxe Room">
                     <div class="room-info">
                         <h3>Deluxe Room</h3>
                         <p>Comfortable and elegant rooms with modern amenities</p>
@@ -114,7 +115,7 @@
                     </div>
                 </div>
                 <div class="room-card">
-                    <img src="https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg" alt="Premium Suite">
+                    <img src="room1.jpeg" alt="Premium Suite">
                     <div class="room-info">
                         <h3>Premium Suite</h3>
                         <p>Spacious suites with separate living area and premium facilities</p>
@@ -143,24 +144,8 @@
             <div class="testimonial-slider-dots" id="testimonial-slider-dots"></div>
             <div class="testimonial-form-container">
                 <h3>Leave a Review</h3>
-                <form id="testimonial-form" action="https://formsubmit.co/splashhresorts@gmail.com" method="POST">
-                    <!-- Honeypot to prevent spam -->
-                    <input type="text" name="_honey" style="display:none">
-                    
-                    <!-- Disable captcha -->
-                    <input type="hidden" name="_captcha" value="false">
-                    
-                    <!-- Custom success page -->
-                    <input type="hidden" name="_next" value="testimonial-success.html">
-                    
-                    <!-- Form subject for email organization -->
-                    <input type="hidden" name="_subject" value="New Guest Review/Testimonial">
-                    
-                    <!-- Template for better email formatting -->
-                    <input type="hidden" name="_template" value="table">
-                    
-                    <!-- Auto reply to sender -->
-                    <input type="hidden" name="_autoresponse" value="Thank you for your review of Splashh Royal Resort & Banquet. Your feedback helps us improve and helps other guests make informed decisions.">
+                <form id="testimonial-form">
+                    <!-- Form will be submitted via JavaScript to backend API -->
                     
                     <input type="text" id="reviewer-name" name="reviewerName" placeholder="Your Name" required>
                     <textarea id="review-text" name="reviewText" placeholder="Your Review" required></textarea>

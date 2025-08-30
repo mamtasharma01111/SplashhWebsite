@@ -50,7 +50,7 @@
                     <p>Our flagship venue featuring crystal chandeliers, marble floors, and panoramic windows. Perfect for grand weddings and large corporate events.</p>
                     <div class="hall-details">
                         <div class="detail-item">
-                            <strong>Capacity:</strong> 200+ guests
+                            <strong>Capacity:</strong> 500+ guests
                         </div>
                         <div class="detail-item">
                             <strong>Area:</strong> 13,000 sq ft
@@ -75,7 +75,7 @@
                     <p>An intimate yet elegant space with royal décor and premium amenities. Ideal for medium-sized celebrations and corporate meetings.</p>
                     <div class="hall-details">
                         <div class="detail-item">
-                            <strong>Capacity:</strong> 200+ guests
+                            <strong>Capacity:</strong> 500+ guests
                         </div>
                         <div class="detail-item">
                             <strong>Area:</strong> 10000 sq ft
@@ -140,14 +140,8 @@
         <div class="modal-content">
             <span class="close">&times;</span>
             <h2>Banquet Inquiry</h2>
-            <form id="inquiryForm" action="https://formsubmit.co/splashhresorts@gmail.com" method="POST">
-                <!-- FormSubmit Configuration -->
-                <input type="hidden" name="_next" value="banquet-success.html">
-                <input type="hidden" name="_subject" value="New Banquet Hall Inquiry - Splashh Royal Resort">
-                <input type="hidden" name="_template" value="table">
-                <input type="hidden" name="_autoresponse" value="Thank you for your banquet inquiry. We will get back to you within 24 hours with detailed information.">
-                <input type="hidden" name="_honey" style="display:none">
-                <input type="hidden" name="_captcha" value="false">
+            <form id="inquiryForm">
+                <!-- Form will be submitted via JavaScript to backend API -->
                 
                 <div class="form-group">
                     <label>Selected Hall:</label>

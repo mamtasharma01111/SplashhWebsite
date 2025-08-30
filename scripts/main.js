@@ -266,11 +266,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Testimonial Review System
-    const testimonialForm = document.getElementById('testimonial-form');
-    const reviewerName = document.getElementById('reviewer-name');
-    const reviewText = document.getElementById('review-text');
-    const userReviews = document.getElementById('user-reviews');
-
     function getStoredReviews() {
         return JSON.parse(localStorage.getItem('splashhReviews') || '[]');
     }
@@ -300,112 +295,157 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     ];
 
+    // Testimonial Slider
     const testimonialSlides = document.getElementById('testimonial-slides');
     const testimonialDots = document.getElementById('testimonial-slider-dots');
     const testimonialPrev = document.getElementById('testimonial-prev');
     const testimonialNext = document.getElementById('testimonial-next');
+    const testimonialForm = document.getElementById('testimonialForm');
+    const reviewerName = document.getElementById('reviewerName');
+    const reviewText = document.getElementById('reviewText');
 
-    function getAllTestimonials() {
-        // User reviews first, then static
-        const user = getStoredReviews().map(r => ({ text: r.text, name: r.name, occasion: '' }));
-        return [...user, ...staticTestimonials];
-    }
+    // Only initialize testimonial slider if elements exist
+    if (testimonialSlides && testimonialDots && testimonialPrev && testimonialNext) {
+        function getAllTestimonials() {
+            const user = getStoredReviews().map(r => ({ text: r.text, name: r.name, occasion: '' }));
+            return [...user, ...staticTestimonials];
+        }
 
-    let testimonialIndex = 0;
-    let testimonialInterval;
+        let testimonialIndex = 0;
+        let testimonialInterval;
 
-    function renderTestimonialSlider() {
-        const testimonials = getAllTestimonials();
-        testimonialSlides.innerHTML = '';
-        testimonialDots.innerHTML = '';
-        testimonials.forEach((t, i) => {
-            const card = document.createElement('div');
-            card.className = 'testimonial-card';
-            card.innerHTML = `
-                <div class="testimonial-content">
-                    <p>"${t.text}"</p>
-                </div>
-                <div class="testimonial-author">
-                    <strong>${t.name}</strong>
-                    ${t.occasion ? `<span>${t.occasion}</span>` : ''}
-                </div>
-            `;
-            testimonialSlides.appendChild(card);
-            // Dots
-            const dot = document.createElement('span');
-            dot.className = 'dot' + (i === testimonialIndex ? ' active' : '');
-            dot.addEventListener('click', () => {
-                showTestimonial(i);
-                restartTestimonialInterval();
+        function renderTestimonialSlider() {
+            const testimonials = getAllTestimonials();
+            testimonialSlides.innerHTML = '';
+            testimonialDots.innerHTML = '';
+            testimonials.forEach((t, i) => {
+                const card = document.createElement('div');
+                card.className = 'testimonial-card';
+                card.innerHTML = `
+                    <div class="testimonial-content">
+                        <p>"${t.text}"</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <strong>${t.name}</strong>
+                        ${t.occasion ? `<span>${t.occasion}</span>` : ''}
+                    </div>
+                `;
+                testimonialSlides.appendChild(card);
+                // Dots
+                const dot = document.createElement('span');
+                dot.className = 'dot' + (i === testimonialIndex ? ' active' : '');
+                dot.addEventListener('click', () => {
+                    showTestimonial(i);
+                    restartTestimonialInterval();
+                });
+                testimonialDots.appendChild(dot);
             });
-            testimonialDots.appendChild(dot);
-        });
-        updateTestimonialSlider();
-    }
+            updateTestimonialSlider();
+        }
 
-    function updateTestimonialSlider() {
-        const cards = testimonialSlides.querySelectorAll('.testimonial-card');
-        cards.forEach((card, i) => {
-            card.style.transform = `translateX(${(i - testimonialIndex) * 100}%)`;
-            card.style.transition = 'transform 0.6s cubic-bezier(.77,0,.18,1)';
-        });
-        // Update dots
-        const dots = testimonialDots.querySelectorAll('.dot');
-        dots.forEach((dot, i) => {
-            dot.classList.toggle('active', i === testimonialIndex);
-        });
-    }
+        function updateTestimonialSlider() {
+            const cards = testimonialSlides.querySelectorAll('.testimonial-card');
+            cards.forEach((card, i) => {
+                card.style.transform = `translateX(${(i - testimonialIndex) * 100}%)`;
+                card.style.transition = 'transform 0.6s cubic-bezier(.77,0,.18,1)';
+            });
+            // Update dots
+            const dots = testimonialDots.querySelectorAll('.dot');
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === testimonialIndex);
+            });
+        }
 
-    function showTestimonial(index) {
-        const testimonials = getAllTestimonials();
-        testimonialIndex = (index + testimonials.length) % testimonials.length;
-        updateTestimonialSlider();
-    }
+        function showTestimonial(index) {
+            const testimonials = getAllTestimonials();
+            testimonialIndex = (index + testimonials.length) % testimonials.length;
+            updateTestimonialSlider();
+        }
 
-    function nextTestimonial() {
-        showTestimonial(testimonialIndex + 1);
-    }
+        function nextTestimonial() {
+            showTestimonial(testimonialIndex + 1);
+        }
 
-    function prevTestimonial() {
-        showTestimonial(testimonialIndex - 1);
-    }
+        function prevTestimonial() {
+            showTestimonial(testimonialIndex - 1);
+        }
 
-    function startTestimonialInterval() {
-        testimonialInterval = setInterval(nextTestimonial, 4000);
-    }
+        function startTestimonialInterval() {
+            testimonialInterval = setInterval(nextTestimonial, 4000);
+        }
 
-    function restartTestimonialInterval() {
-        clearInterval(testimonialInterval);
-        startTestimonialInterval();
-    }
+        function restartTestimonialInterval() {
+            clearInterval(testimonialInterval);
+            startTestimonialInterval();
+        }
 
-    if (testimonialPrev && testimonialNext) {
         testimonialPrev.addEventListener('click', () => {
             prevTestimonial();
             restartTestimonialInterval();
         });
+        
         testimonialNext.addEventListener('click', () => {
             nextTestimonial();
             restartTestimonialInterval();
         });
+
+        // Render on load
+        renderTestimonialSlider();
+        showTestimonial(0);
+        startTestimonialInterval();
     }
 
-    // Render on load
-    renderTestimonialSlider();
-    showTestimonial(0);
-    startTestimonialInterval();
-
-    // Re-render slider when a new review is submitted
-    if (testimonialForm) {
-        testimonialForm.addEventListener('submit', function(e) {
+    // Testimonial form handling (only if form exists)
+    if (testimonialForm && reviewerName && reviewText) {
+        testimonialForm.addEventListener('submit', async function(e) {
             e.preventDefault();
             const name = reviewerName.value.trim();
             const text = reviewText.value.trim();
+            
             if (name && text) {
-                saveReview(name, text);
-                renderTestimonialSlider();
-                showTestimonial(0);
-                testimonialForm.reset();
+                try {
+                    // Send to backend API
+                    const response = await fetch('http://localhost:3000/api/testimonial', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ reviewerName: name, reviewText: text })
+                    });
+
+                    if (response.ok) {
+                        const result = await response.json();
+                        if (result.success) {
+                            // Store review locally
+                            const reviews = getStoredReviews();
+                            reviews.push({ name, text, date: new Date().toISOString() });
+                            localStorage.setItem('userReviews', JSON.stringify(reviews));
+                            
+                            // Show success message
+                            showSuccessMessage('Thank you for your review!');
+                            
+                            // Reset form
+                            testimonialForm.reset();
+                            
+                            // Re-render slider if it exists
+                            if (typeof renderTestimonialSlider === 'function') {
+                                renderTestimonialSlider();
+                            }
+                            
+                            // Redirect to success page
+                            setTimeout(() => {
+                                window.location.href = 'testimonial-success.html';
+                            }, 2000);
+                        } else {
+                            throw new Error(result.message || 'Failed to submit review');
+                        }
+                    } else {
+                        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                    }
+                } catch (error) {
+                    console.error('Error submitting review:', error);
+                    showErrorMessage('Failed to submit review. Please try again.');
+                }
             }
         });
     }

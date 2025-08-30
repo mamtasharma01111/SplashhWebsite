@@ -93,14 +93,8 @@
                 <!-- Contact Form -->
                 <div class="contact-form">
                     <h2>Send Message</h2>
-                    <form id="contactForm" action="https://formsubmit.co/splashhresorts@gmail.com" method="POST">
-                        <!-- FormSubmit Configuration -->
-                        <input type="hidden" name="_next" value="contact-success.html">
-                        <input type="hidden" name="_subject" value="New Contact Form Submission - Splashh Royal Resort">
-                        <input type="hidden" name="_template" value="table">
-                        <input type="hidden" name="_autoresponse" value="Thank you for contacting Splashh Royal Resort. We will get back to you within 24 hours.">
-                        <input type="hidden" name="_honey" style="display:none">
-                        <input type="hidden" name="_captcha" value="false">
+                    <form id="contactForm">
+                        <!-- Form will be submitted via JavaScript to backend API -->
                         
                         <div class="form-row">
                             <div class="form-group">
@@ -152,29 +146,42 @@
 
                         <button type="submit" class="btn btn-primary">Send Message</button>
                     </form>
-                    
-
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Map Section -->
-    <section class="map-section">
-        <div class="container">
-            <h2 class="section-title">Find Us</h2>
-            <div class="map-container">
-                <div class="map-placeholder">
-                    <div class="map-content">
-                        <h3>Splashh Royal Resort & Banquet</h3>
-                        <p>Splashh Resort & Banquet, Gautam Road,<br>Near Gandhi Sikshan Sansthan, Ratanpur Begusarai<br>Bihar</p>
-                        <p>Click to view on Google Maps</p>
-                        <a href="https://maps.google.com" target="_blank" class="btn btn-secondary">View on Google Maps</a>
-                    </div>
-                </div>
+ <!-- Map Section -->
+<section class="map-section">
+    <div class="container">
+        <h2 class="section-title">Find Us</h2>
+        <div class="map-container" style="position: relative; overflow: hidden; border-radius: 12px;">
+            
+            <!-- Google Map Embed -->
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3616.1165270797653!2d86.1187!3d25.4374!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f28ed69af6a3f3%3A0x53bde68eacda94f8!2sSplashh%20Royal%20Resort%20%26%20Banquet!5e0!3m2!1sen!2sin!4v1693478292017!5m2!1sen!2sin" 
+                width="100%" 
+                height="400" 
+                style="border:0;" 
+                allowfullscreen="" 
+                loading="lazy" 
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+
+            <!-- Address Info -->
+            <div class="map-content" style="padding: 20px; background: #fff; margin-top: 15px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                <h3>Splashh Royal Resort & Banquet</h3>
+                <p>Splashh Resort & Banquet, Gautam Road,<br>
+                Near Gandhi Sikshan Sansthan, Ratanpur Begusarai,<br>
+                Bihar</p>
+                <a href="https://www.google.com/maps/place/Splashh+Royal+Resort+%26+Banquet/@25.4374,86.1187,17z" 
+                   target="_blank" class="btn btn-secondary">
+                   View on Google Maps
+                </a>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
     <!-- Quick Contact -->
     <section class="quick-contact">

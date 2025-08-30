@@ -3,27 +3,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const contactForm = document.getElementById('contactForm');
 
     // Handle contact form submission
-    contactForm.addEventListener('submit', function(e) {
-        // Validate form first
-        if (!window.validateForm(this)) {
-            e.preventDefault();
-            return;
-        }
-
-        // Add reply-to field if it doesn't exist
-        let replyToField = this.querySelector('input[name="_replyto"]');
-        if (!replyToField) {
-            replyToField = document.createElement('input');
-            replyToField.type = 'hidden';
-            replyToField.name = '_replyto';
-            this.appendChild(replyToField);
-        }
-        
-        // Set the reply-to field to the sender's email
-        const emailField = this.querySelector('input[name="email"]');
-        if (emailField) {
-            replyToField.value = emailField.value;
-        }
+    contactForm.addEventListener('submit', async function(e) {
+        e.preventDefault(); // Prevent default form submission
 
         // Show loading state
         const submitBtn = this.querySelector('button[type="submit"]');
@@ -32,9 +13,123 @@ document.addEventListener('DOMContentLoaded', function() {
         submitBtn.textContent = 'Sending...';
         submitBtn.disabled = true;
 
-        // Let the form submit naturally to FormSubmit
-        // The form will redirect to the success page after submission
+        try {
+            // Collect form data
+            const formData = {
+                firstName: this.querySelector('#firstName').value,
+                lastName: this.querySelector('#lastName').value,
+                email: this.querySelector('#email').value,
+                phone: this.querySelector('#phone').value,
+                subject: this.querySelector('#subject').value,
+                message: this.querySelector('#message').value,
+                newsletter: this.querySelector('#newsletter').checked
+            };
+
+            // Send to backend API
+            const response = await fetch('http://localhost:3000/api/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData)
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                // Show success message
+                showSuccessMessage('Message sent successfully! We will get back to you within 24 hours.');
+                
+                // Reset form
+                this.reset();
+                
+                // Redirect to success page after a delay
+                setTimeout(() => {
+                    window.location.href = 'contact-success.html';
+                }, 2000);
+            } else {
+                throw new Error(result.message || 'Failed to send message');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            showErrorMessage('Failed to send message. Please try again or contact us directly.');
+        } finally {
+            // Reset button state
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+        }
     });
+
+    // Success message display
+    function showSuccessMessage(message) {
+        const successDiv = document.createElement('div');
+        successDiv.style.cssText = `
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(40, 167, 69, 0.3);
+            z-index: 1001;
+            animation: slideInRight 0.3s ease-out;
+        `;
+        successDiv.textContent = message;
+
+        // Add animation keyframes if not exists
+        if (!document.querySelector('#success-animation-style')) {
+            const style = document.createElement('style');
+            style.id = 'success-animation-style';
+            style.textContent = `
+                @keyframes slideInRight {
+                    from { transform: translateX(100%); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                }
+                @keyframes slideOutRight {
+                    from { transform: translateX(0); opacity: 1; }
+                    to { transform: translateX(100%); opacity: 0; }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+
+        document.body.appendChild(successDiv);
+
+        setTimeout(() => {
+            successDiv.style.animation = 'slideOutRight 0.3s ease-out';
+            setTimeout(() => {
+                document.body.removeChild(successDiv);
+            }, 300);
+        }, 3000);
+    }
+
+    // Error message display
+    function showErrorMessage(message) {
+        const errorDiv = document.createElement('div');
+        errorDiv.style.cssText = `
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: linear-gradient(135deg, #dc3545 0%, #e74c3c 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(220, 53, 69, 0.3);
+            z-index: 1001;
+            animation: slideInRight 0.3s ease-out;
+        `;
+        errorDiv.textContent = message;
+
+        document.body.appendChild(errorDiv);
+
+        setTimeout(() => {
+            errorDiv.style.animation = 'slideOutRight 0.3s ease-out';
+            setTimeout(() => {
+                document.body.removeChild(errorDiv);
+            }, 300);
+        }, 5000);
+    }
 
     // Real-time form validation
     const formInputs = contactForm.querySelectorAll('input, select, textarea');

@@ -114,14 +114,8 @@
         <div class="modal-content">
             <span class="close">&times;</span>
             <h2>Book Your Stay</h2>
-            <form id="bookingForm" action="https://formsubmit.co/splashhresorts@gmail.com" method="POST">
-                <!-- FormSubmit Configuration -->
-                <input type="hidden" name="_next" value="booking-success.html">
-                <input type="hidden" name="_subject" value="New Room Booking Request - Splashh Royal Resort">
-                <input type="hidden" name="_template" value="table">
-                <input type="hidden" name="_autoresponse" value="Thank you for your room booking request. We will get back to you within 24 hours with confirmation and details.">
-                <input type="hidden" name="_honey" style="display:none">
-                <input type="hidden" name="_captcha" value="false">
+            <form id="bookingForm">
+                <!-- Form will be submitted via JavaScript to backend API -->
                 
                 <div class="form-group">
                     <label>Room Type:</label>

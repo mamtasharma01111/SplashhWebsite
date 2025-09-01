@@ -3,16 +3,14 @@ document.addEventListener('DOMContentLoaded', function() {
     // Room filtering
     const filterButtons = document.querySelectorAll('.filter-btn');
     const roomCards = document.querySelectorAll('.room-card');
-
+    
     filterButtons.forEach(button => {
         button.addEventListener('click', function() {
-            // Update active button
             filterButtons.forEach(btn => btn.classList.remove('active'));
             this.classList.add('active');
 
             const filter = this.getAttribute('data-filter');
 
-            // Filter rooms
             roomCards.forEach(card => {
                 if (filter === 'all' || card.getAttribute('data-category') === filter) {
                     card.style.display = 'block';
@@ -37,7 +35,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const closeBtn = document.querySelector('.close');
     const bookingForm = document.getElementById('bookingForm');
 
-    // Open modal
     bookButtons.forEach(button => {
         button.addEventListener('click', function() {
             const roomType = this.getAttribute('data-room');
@@ -49,14 +46,12 @@ document.addEventListener('DOMContentLoaded', function() {
             modal.style.display = 'block';
             document.body.style.overflow = 'hidden';
 
-            // Set minimum date to today
             const today = new Date().toISOString().split('T')[0];
             document.getElementById('checkIn').min = today;
             document.getElementById('checkOut').min = today;
         });
     });
 
-    // Close modal
     closeBtn.addEventListener('click', function() {
         modal.style.display = 'none';
         document.body.style.overflow = 'auto';
@@ -89,12 +84,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Add event listeners for price calculation
     ['checkIn', 'checkOut', 'rooms'].forEach(id => {
         document.getElementById(id).addEventListener('change', calculateTotal);
     });
 
-    // Validate check-out date
     document.getElementById('checkIn').addEventListener('change', function() {
         const checkInDate = this.value;
         const checkOutInput = document.getElementById('checkOut');
@@ -110,12 +103,11 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Handle booking form submission
+    // Handle booking form + Razorpay
     bookingForm.addEventListener('submit', async function(e) {
-        e.preventDefault(); // Prevent default form submission
+        e.preventDefault();
         
         if (window.validateForm(this)) {
-            // Show processing state
             const submitBtn = this.querySelector('button[type="submit"]');
             const originalText = submitBtn.textContent;
             
@@ -123,7 +115,6 @@ document.addEventListener('DOMContentLoaded', function() {
             submitBtn.disabled = true;
 
             try {
-                // Collect form data
                 const formData = {
                     selectedRoom: this.querySelector('#roomType').value,
                     roomPrice: this.querySelector('#roomPrice').value.replace('₹', '').replace('/night', '').replace(',', ''),
@@ -133,50 +124,64 @@ document.addEventListener('DOMContentLoaded', function() {
                     rooms: this.querySelector('#rooms').value,
                     guestName: this.querySelector('#guestName').value,
                     guestEmail: this.querySelector('#guestEmail').value,
-                    guestPhone: this.querySelector('#guestPhone').value
+                    guestPhone: this.querySelector('#guestPhone').value,
+                    totalAmount: document.getElementById('totalPrice').textContent.replace(',', '')
                 };
 
-                // Send to backend API
-                const response = await fetch('http://localhost:3000/api/rooms', {
+                // 1. Create Razorpay order from backend
+                const orderResponse = await fetch('http://localhost:3000/api/payment/order', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(formData)
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ amount: formData.totalAmount })
                 });
 
-                const result = await response.json();
+                const order = await orderResponse.json();
 
-                if (result.success) {
-                    // Show success message
-                    showSuccessMessage('Booking request sent successfully! We will get back to you within 24 hours.');
-                    
-                    // Reset form
-                    this.reset();
-                    
-                    // Close modal
-                    modal.style.display = 'none';
-                    document.body.style.overflow = 'auto';
-                    
-                    // Redirect to success page after a delay
-                    setTimeout(() => {
-                        window.location.href = 'booking-success.html';
-                    }, 2000);
-                } else {
-                    throw new Error(result.message || 'Failed to send booking request');
-                }
+                // 2. Open Razorpay checkout
+                const options = {
+                    key: "YOUR_RAZORPAY_KEY_ID", // replace with your key
+                    amount: order.amount,
+                    currency: order.currency,
+                    order_id: order.id,
+                    name: "Splashh Hotel Booking",
+                    description: formData.selectedRoom,
+                    handler: async function (response) {
+                        // 3. On payment success → save booking
+                        await fetch('http://localhost:3000/api/rooms', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ ...formData, paymentId: response.razorpay_payment_id })
+                        });
+
+                        showSuccessMessage('Payment successful! Booking confirmed.');
+                        bookingForm.reset();
+                        modal.style.display = 'none';
+                        document.body.style.overflow = 'auto';
+                        setTimeout(() => {
+                            window.location.href = 'booking-success.html';
+                        }, 2000);
+                    },
+                    prefill: {
+                        name: formData.guestName,
+                        email: formData.guestEmail,
+                        contact: formData.guestPhone
+                    },
+                    theme: { color: "#3399cc" }
+                };
+
+                const rzp = new Razorpay(options);
+                rzp.open();
+
             } catch (error) {
                 console.error('Error:', error);
-                showErrorMessage('Failed to send booking request. Please try again or contact us directly.');
+                showErrorMessage('Payment/Booking failed. Please try again.');
             } finally {
-                // Reset button state
                 submitBtn.textContent = originalText;
                 submitBtn.disabled = false;
             }
         }
     });
 
-    // Success message display
     function showSuccessMessage(message) {
         const successDiv = document.createElement('div');
         successDiv.style.cssText = `
@@ -193,7 +198,6 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
         successDiv.textContent = message;
 
-        // Add animation keyframes if not exists
         if (!document.querySelector('#success-animation-style')) {
             const style = document.createElement('style');
             style.id = 'success-animation-style';
@@ -220,11 +224,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 3000);
     }
 
-    // Error message display
     function showErrorMessage(message) {
         const errorDiv = document.createElement('div');
         errorDiv.style.cssText = `
-            position:relative;
+            position: relative;
             top: 100px;
             right: 20px;
             background: linear-gradient(135deg, #dc3545 0%, #e74c3c 100%);
@@ -247,7 +250,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 5000);
     }
 
-    // Add smooth transitions to room cards
     roomCards.forEach(card => {
         card.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
     });

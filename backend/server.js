@@ -1,6 +1,7 @@
 const express = require('express');
 const Razorpay = require('razorpay');
 const nodemailer = require('nodemailer');
+const crypto = require("crypto");
 const cors = require('cors');
 const bodyParser = require('body-parser');
 require('dotenv').config();
@@ -35,9 +36,31 @@ app.post("/api/payment/order", async (req, res) => {
     }
 });
 
+app.post("/api/payment/verify", (req, res) => {
+  try {
+    const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
+
+    const body = razorpay_order_id + "|" + razorpay_payment_id;
+
+    const expectedSignature = crypto
+      .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET)
+      .update(body.toString())
+      .digest("hex");
+
+    if (expectedSignature === razorpay_signature) {
+      res.json({ status: "success", paymentId: razorpay_payment_id });
+    } else {
+      res.status(400).json({ status: "failure", message: "Invalid signature" });
+    }
+  } catch (error) {
+    console.error("Payment verification error:", error);
+    res.status(500).json({ success: false, message: "Payment verification failed" });
+  }
+});
+
 
 // Serve static files from parent directory
-app.use(express.static('../'));
+app.use(express.static('public'));
 
 const config = {
     email: {
